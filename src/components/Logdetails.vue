@@ -5,7 +5,7 @@
     <form novalidate class="md-layout" @submit.prevent="validateForm">
    <md-card >
       <md-card-header>
-        <div class="md-title">Card without hover effect</div>
+        <div class="md-title">New/Change log</div>
       </md-card-header>
 
       <md-card-content>
@@ -60,14 +60,14 @@
 
                <md-field :class="getValidationClass('starting_milage')">
                 <label for="starting_milage">Starting milage</label>
-                <md-input name="starting_milage" id="starting_milage" v-model="form.starting_milage" :disabled="sending" />
+                <md-input type="number" name="starting_milage" id="starting_milage" v-model="form.starting_milage" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.starting_milage.required">The starting milage is required</span>
                 <span class="md-error" v-if="!$v.form.starting_milage.numeric">Enter numbers only</span>
               </md-field>
 
                 <md-field :class="getValidationClass('finishing_milage')">
                 <label for="finishing_milage">Finishing milage</label>
-                <md-input name="finishing_milage" id="finishing_milage" v-model="form.finishing_milage" :disabled="sending" />
+                <md-input type="number" name="finishing_milage" id="finishing_milage" v-model="form.finishing_milage" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.finishing_milage.required">The finishing milage is required</span>
                 <span class="md-error" v-if="!$v.form.finishing_milage.numeric">Enter numbers only</span>
               </md-field>
@@ -91,7 +91,7 @@
 
               <md-field :class="getValidationClass('fuel_left')">
                 <label for="fuel_left">Fuel left (%)</label>
-                <md-input name="fuel_left" id="fuel_left" v-model="form.fuel_left" :disabled="sending" />
+                <md-input type="number" name="fuel_left" id="fuel_left" v-model="form.fuel_left" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.fuel_left.numeric">The fuel left must be a number</span>
               </md-field>
           </md-card-content>

@@ -22,7 +22,7 @@
   </div>
 
     <div>
-      <md-button @click="newlog" class="md-fab md-primary md-fab-bottom-right">
+      <md-button @click="newlog" class="md-fab md-fixed md-primary md-fab-bottom-right">
         <md-icon>add</md-icon>
       </md-button>
       </div>

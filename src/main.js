@@ -8,6 +8,16 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import firebase from 'firebase'
+import VueAnalytics from 'vue-analytics'
+
+
+Vue.use(VueAnalytics, {
+  id: 'UA-116680815-1',
+  router,
+  debug: {
+    sendHitTask: process.env.NODE_ENV === 'production'
+  }
+})
 
 firebase.initializeApp({
   apiKey: 'AIzaSyAD1eCuH6pzqIETLPNGT_Q5m51rqHfgu3Y',
