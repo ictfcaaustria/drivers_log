@@ -1,15 +1,10 @@
 {
-  "name": "vue-pwa-2",
-  "short_name": "vue-pwa-2",
+  "name": "Drivers Log for shared company cars",
+  "short_name": "drivers_log",
   "icons": [
     {
-      "src": "/static/img/icons/android-chrome-192x192.png",
+      "src": "/static/img/icons/drivers_log-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/static/img/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
       "type": "image/png"
     }
   ],
