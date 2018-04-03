@@ -47,12 +47,18 @@
                <md-field :class="getValidationClass('starting_location')">
                 <label for="starting_location">Starting location</label>
                 <md-input name="starting_location" id="starting_location" v-model="form.starting_location" :disabled="sending" />
+                <div @click="loadposition('starting_location')">
+                    <md-icon>gps_fixed</md-icon>
+                </div>
                 <span class="md-error" v-if="!$v.form.starting_location.required">The starting location is required</span>
               </md-field>
 
                 <md-field :class="getValidationClass('finishing_location')">
                 <label for="finishing_location">Finishing location</label>
                 <md-input name="finishing_location" id="finishing_location" v-model="form.finishing_location" :disabled="sending" />
+                <div @click="loadposition('finishing_location')">
+                    <md-icon>gps_fixed</md-icon>
+                </div>
                 <span class="md-error" v-if="!$v.form.finishing_location.required">The finishing location is required</span>
               </md-field>
 
@@ -124,6 +130,7 @@
 <script>
   import firebase from "firebase";
   import "firebase/firestore";
+  import geocoder from 'geocoder'
   import moment from 'moment'
   import { validationMixin } from 'vuelidate'
   import {
@@ -233,20 +240,45 @@
         if (!this.$v.$invalid) {
           this.saveLog()
         }
+      },
+      loadposition (element) {
+        if (this.sending == true) { console.log("not loading position because sending is true")
+          return ;
+        }
+        this.sending = true
+        navigator.geolocation.getCurrentPosition(res => { console.log("getting geolocation")
+          var apiKey = "AIzaSyBKIZKVoQ-ApgE4ExS6WwA2FeAo4AeitPU"
+          geocoder.reverseGeocode( res.coords.latitude, res.coords.longitude, ( err, data ) => {
+            if (data) {
+              console.log(data)
+              this.form[element] = data["results"][0]["formatted_address"]
+              this.sending = false
+              return ;
+            } else if (err) {
+              this.form[element] = "GEOLOCATION ERROR"
+              this.sending = false
+              return ;
+            }
+          }, { language: 'de', key : apiKey }); 
+        })
       }
     },
-    mounted : function () {
+    mounted : function () { console.log("mounted")
       if (this.$store.state.current.log) {
         this.form = this.$store.state.current.log
       } else {
         this.form.driver = this.$store.state.user.email
+        // geocode
+        
+        this.loadposition("starting_location")
+        
         this.isnew = true;
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style >
   .md-progress-bar {
     position: absolute;
     top: 0;
@@ -257,5 +289,12 @@
     margin: 0;
     margin-bottom:16px;
     width:100%;
+  }
+
+  #test * {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 </style>
